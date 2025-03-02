@@ -1,6 +1,12 @@
 # Open NotebookLM
 
-An AI-powered note-taking and research assistant that helps you capture, summarize, and organize your notes with advanced features like semantic search and key information extraction.
+An AI-powered note-taking and research assistant that helps you organize and understand your documents through intelligent summarization, interactive Q&A, and information extraction.
+
+This tool enables you to:
+- Capture and Organize Information: Import PDF or plain text notes and have the system help organize and structure large amounts of information.
+- Summarize Content: Automatically generate summaries of lengthy documents, making it easier to digest and recall important points.
+- Interactive Q&A: Engage in a conversational interface to ask follow-up questions about your material, allowing for deeper insights and connections between ideas.
+- Enhance Research Efficiency: The AI assists in identifying key themes and connections, enabling more efficient retrieval of information and a better understanding of complex topics.
 
 ## Features
 
@@ -84,7 +90,11 @@ Current phase: 1b (PDF Ingestion)
 - [x] PDF text extraction
 - [x] Integration with existing summarization pipeline
 
-Next phase: Coming soon
+Next phase: Phase 2 (Source-Grounded Q&A)
+- [x] Plain text source upload support
+- [x] Source-grounded query responses
+- [x] Natural language Q&A interface
+- [x] RAG-like response generation
 
 ## Project Structure
 
