@@ -2,13 +2,20 @@
 
 An AI-powered note-taking and research assistant that helps you capture, summarize, and organize your notes with advanced features like semantic search and key information extraction.
 
-## Features (Phase 1a)
+## Features
 
+Phase 1a: Text Ingestion
 - Natural language note capture
 - AI-powered summarization
 - Automatic extraction of key points, dates, names, and action items
 - Semantic search with tag filtering
 - Clean and intuitive Streamlit interface
+
+Phase 1b: PDF Ingestion
+- PDF file upload support
+- Automatic text extraction from PDF documents
+- Integration with summarization pipeline
+- Unified processing for both text and PDF inputs
 
 ## Requirements
 
@@ -67,17 +74,17 @@ The application will be available at `http://localhost:8501` with the following 
 
 ## Development Status
 
-Current phase: 1a (Text Ingestion)
+Current phase: 1b (PDF Ingestion)
 - [x] Core note processing functionality
 - [x] LLM integration
 - [x] Vector storage setup
 - [x] Basic search capabilities
 - [x] Streamlit UI
+- [x] PDF file upload support
+- [x] PDF text extraction
+- [x] Integration with existing summarization pipeline
 
-Next phase: 1b (PDF Ingestion)
-- [ ] PDF file upload support
-- [ ] PDF text extraction
-- [ ] Integration with existing summarization pipeline
+Next phase: Coming soon
 
 ## Project Structure
 
