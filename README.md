@@ -90,25 +90,46 @@ Current phase: 1b (PDF Ingestion)
 - [x] PDF text extraction
 - [x] Integration with existing summarization pipeline
 
-Next phase: Phase 2 (Source-Grounded Q&A)
+Phase 2: Source-Grounded Q&A
 - [x] Plain text source upload support
 - [x] Source-grounded query responses
 - [x] Natural language Q&A interface
 - [x] RAG-like response generation
 
+Phase 3: Enhanced Text Processing
+- [x] Advanced text preprocessing
+  • Whitespace and Unicode normalization
+  • Headers/footers removal
+  • Line and paragraph standardization
+  • Section boundary detection
+- [x] Intelligent chunking strategy
+  • 400 token chunks with overlap
+  • Chunk linking for context
+  • Section and page metadata
+  • Source position tracking
+- [x] Enhanced retrieval system
+  • Chunk-based semantic search
+  • Multi-metric reranking
+  • Efficient data storage
+  • Structure-aware results
+
 ## Project Structure
 
 ```
 open-notebook-lm/
-├── docs/               # Documentation
-├── src/               # Source code
-│   ├── config/        # Configuration
-│   ├── models/        # Data models
-│   ├── services/      # Business logic
-│   └── ui/           # Streamlit interface
-├── .env.template      # Environment template
-├── main.py           # Application entry
-└── README.md         # This file
+├── docs/                # Documentation
+├── src/                # Source code
+│   ├── config/         # Configuration
+│   ├── models/         # Data models
+│   │   └── source.py   # Source and chunk models
+│   ├── services/       # Business logic
+│   │   ├── llm.py     # LLM integration
+│   │   ├── source.py  # Source processing
+│   │   └── text_processing.py  # Text preprocessing
+│   └── ui/            # Streamlit interface
+├── .env.template       # Environment template
+├── main.py            # Application entry
+└── README.md          # This file
 ```
 
 ## License

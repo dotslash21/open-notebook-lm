@@ -5,9 +5,9 @@ from src.models.source import (
     SearchQuery,
     SearchResult,
     Source,
-    SourceSummary,
 )
 from src.services.llm import LLMService
+from src.services.text_processing import TextProcessingService
 from src.services.vector_store import VectorStorageService
 
 
@@ -18,69 +18,55 @@ class SourceService:
         """Initialize source service with required dependencies."""
         self.llm_service = LLMService()
         self.vector_store = VectorStorageService()
-        self._sources: dict[str, Source] = {}
-        self._summaries: dict[str, SourceSummary] = {}
+        self.text_processor = TextProcessingService()
 
     def create_source(self, content: str) -> Source:
-        """Create a new source, process it, and store it."""
-        # Create source
-        source = Source(content=content)
-
-        # Generate summary using LLM
-        summary = self.llm_service.generate_summary(source)
+        """Create a new source with preprocessed chunks."""
+        # Create source with preprocessed chunks
+        source = self.text_processor.process_source(content)
 
         # Store in vector database
         self.vector_store.store_source(source)
 
-        # Store in memory
-        self._sources[str(source.id)] = source
-        self._summaries[str(source.id)] = summary
-
         return source
 
-    def get_source(self, source_id: str) -> Source | None:
-        """Retrieve a source by its ID."""
-        return self._sources.get(source_id)
-
-    def get_source_summary(self, source_id: str) -> SourceSummary | None:
-        """Retrieve a source's summary by source ID."""
-        return self._summaries.get(source_id)
-
     def get_response(self, source_id: str, query: str) -> str:
-        """Get a response to a query that is grounded in the source's content."""
-        source = self.get_source(source_id)
-        if not source:
-            raise ValueError("Source not found")
+        """Get a response to a query grounded in relevant chunks."""
+        # Get relevant chunks from the source
+        result = self.vector_store.search_source_chunks(
+            source_id, SearchQuery(query=query)
+        )
+        if not result.matched_chunks:
+            return "No relevant content found for this query."
 
-        return self.llm_service.generate_grounded_response(source.content, query)
+        # Extract relevant chunk content with metadata
+        chunk_contexts = []
+        for match in result.matched_chunks:
+            chunk = match.chunk
+            context = chunk.content
+            if chunk.section_title:
+                context = f"{chunk.section_title}:\n{context}"
+            chunk_contexts.append(context)
+
+        # Join chunks with markers
+        combined_context = "\n---\n".join(chunk_contexts)
+
+        # Generate grounded response
+        return self.llm_service.generate_grounded_response(combined_context, query)
 
     def search_sources(self, query: str, limit: int = 10) -> list[SearchResult]:
-        """Search for sources using semantic similarity."""
+        """Search for sources based on relevant chunks."""
+        # Search with chunk-based ranking
         search_query = SearchQuery(query=query, limit=limit)
-        results = self.vector_store.search(search_query)
-
-        # Enhance results with summaries if available
-        for result in results:
-            source_id = str(result.source.id)
-            if source_id in self._summaries:
-                result.summary = self._summaries[source_id]
-
-        return results
+        return self.vector_store.search(search_query)
 
     def delete_source(self, source_id: str) -> bool:
         """Delete a source and its associated data."""
-        if source_id not in self._sources:
+        try:
+            self.vector_store.delete_source(source_id)
+            return True
+        except ValueError:
             return False
-
-        # Remove from vector store
-        self.vector_store.delete_source(source_id)
-
-        # Remove from memory
-        del self._sources[source_id]
-        if source_id in self._summaries:
-            del self._summaries[source_id]
-
-        return True
 
     def list_sources(
         self, limit: int = 10, offset: int = 0
