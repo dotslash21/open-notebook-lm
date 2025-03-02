@@ -1,0 +1,75 @@
+[project]
+name = "open-notebook-lm"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "streamlit>=1.31.0",
+    "openai>=1.12.0",
+    "qdrant-client>=1.13.0",
+    "fastembed-gpu>=0.6.0",
+    "python-dotenv>=1.0.0",
+    "networkx>=3.2.1",
+    "pyvis>=0.3.2",
+    "pydantic>=2.6.1",
+    "pydantic-settings>=2.8.1",
+]
+
+  [project.optional-dependencies]
+  dev = [ "ruff==0.9.9" ]
+
+[build-system]
+requires = [ "hatchling" ]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+src = [ "src" ]
+line-length = 88
+exclude = [ ".git", ".env", ".venv", "venv", "__pycache__" ]
+
+  [tool.ruff.lint]
+  select = [
+    "E",
+    "F",
+    "I",
+    "N",
+    "B",
+    "W",
+    "D",
+    "UP",
+    "TID",
+    "C4",
+    "SIM",
+    "ARG",
+    "PTH"
+  ]
+  ignore = [ ]
+
+    [tool.ruff.lint.isort]
+    known-first-party = [ "src" ]
+
+    [tool.ruff.lint.pycodestyle]
+    max-doc-length = 88
+
+    [tool.ruff.lint.pydocstyle]
+    convention = "google"
+
+    [tool.ruff.lint.mccabe]
+    max-complexity = 10
+
+  [tool.ruff.format]
+  quote-style = "double"
+  indent-style = "space"
+  line-ending = "auto"
+  skip-magic-trailing-comma = false
+  docstring-code-format = true
+
+[tool.black]
+line-length = 88
+target-version = [ "py312" ]
+include = "\\.pyi?$"
