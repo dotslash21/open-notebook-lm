@@ -1,4 +1,4 @@
-"""Streamlit application for NotebookLM."""
+"""Streamlit application for Open NotebookLM."""
 
 import streamlit as st
 
@@ -14,7 +14,7 @@ def get_note_service():
 
 def main():
     """Main Streamlit application."""
-    st.title("NotebookLM")
+    st.title("Open NotebookLM")
     st.subheader("AI-Powered Note Taking Assistant")
 
     # Initialize services

@@ -1,1 +1,1 @@
-"""NotebookLM package."""
+"""Open NotebookLM package."""

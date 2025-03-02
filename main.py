@@ -1,4 +1,4 @@
-"""NotebookLM application entry point."""
+"""Open NotebookLM application entry point."""
 
 from src.ui.app import main
 

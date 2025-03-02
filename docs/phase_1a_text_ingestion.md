@@ -5,13 +5,13 @@ This phase implements the core functionality for capturing and processing text i
 
 ## Features
 - [x] Project structure setup
-- [ ] Environment configuration
-- [ ] Text note capture via Streamlit UI
-- [ ] LLM integration for summarization
-- [ ] Key information extraction (dates, names, actionable items)
-- [ ] Vector storage setup with Qdrant
-- [ ] Basic search functionality
-- [ ] Initial UI implementation
+- [x] Environment configuration
+- [x] Text note capture via Streamlit UI
+- [x] LLM integration for summarization
+- [x] Key information extraction (dates, names, actionable items)
+- [x] Vector storage setup with Qdrant
+- [x] Basic search functionality
+- [x] Initial UI implementation
 
 ## Implementation Details
 

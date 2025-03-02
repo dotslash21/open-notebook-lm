@@ -1,4 +1,4 @@
-# NotebookLM
+# Open NotebookLM
 
 An AI-powered note-taking and research assistant that helps you capture, summarize, and organize your notes with advanced features like semantic search and key information extraction.
 
